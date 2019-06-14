@@ -16,8 +16,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
+//# include <sys/uio.h>
+//# include <unistd.h>
+# include <io.h>
 # include <stdlib.h>
 # include "./libft/libft.h"
 
@@ -28,15 +29,19 @@ typedef struct s_figure   t_fig;
 
 struct      s_figure
 {
-    int     x_arr[4];
-    int     y_arr[4];
+    int     *x_arr;
+    int     *y_arr;
     int     index;
     t_fig   *next;
-    t_fig   *prev;
+    //t_fig   *prev;
 };
 
-int min_edge(int n);
-char   **create_map(int n);
+char **create_map (t_fig *list,int a);
+char **zero_map(int a);
+int fill_map(int a, t_fig *fig, char **map);
+int check_availible(int *x,int *y, int dx,int dy, char **map);
+//int min_edge(int n);
+//char   **create_map(int n);
 //int availible();
 
 #endif
