@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:25:58 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/03 16:13:53 by sskinner         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:03:36 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 //# define BUFF_SIZE 1
 # define TETRI 26
 
-typedef struct		tetri
+/*typedef struct		tetri
 
 {
     int	*x;
@@ -34,7 +34,7 @@ typedef struct		tetri
     struct tetri *previous;
     struct tetri *next;
 
-}					tetri;
+}					tetri;*/
 
 typedef struct s_figure   t_fig;
 
@@ -44,7 +44,7 @@ struct      s_figure
     int     *y_arr;
     int     index;
     t_fig   *next;
-    t_fig   *prev;
+ //   t_fig   *prev;
 };
 //PART2
 char **create_map (t_fig *list,int a);

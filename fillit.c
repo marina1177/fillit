@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 16:41:20 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/09 15:23:25 by sskinner         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:02:48 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ static tetri   *detect_and_createtetri(char *str)
     int		index;
     int		l;
     int     k;
-    tetri   *base_tetri;
-    tetri	*tetri;
+    t_fig   *base_tetri;
+    t_fig	*tetri;
 
     index = 0;
     l = 0;
@@ -66,12 +66,12 @@ int		reading(int fd)
 	int		count;
 	char	str[546];
 	char    *tmp;
-	tetri	*base_tetri;
+	t_fig	*base_tetri;
 	int i;
 
 	base_tetri = NULL;
 	i = 0;
-	while ((count = read(fd, str, 546)) <= 20)//читаем 21 символ т/к (..#.\n)5х4 (один блок) + еще один \n ?? Работает, собирает цепь из фигур корректно (вроде)
+	while ((count = read(fd, str, 546)) <= 20)
     {
         str[count] = '\0';
         //tmp = strcut(str);  //?
@@ -90,11 +90,3 @@ int		reading(int fd)
     return (1);
 }
 
-/*int main ()
-{
-	int fd;
-	
-	fd = open("/Users/sskinner/gitex/Fillit/tetri.txt", O_RDONLY);
-	reading(fd);
-	return (0);
-}*/

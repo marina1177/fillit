@@ -6,14 +6,14 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:49:59 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/03 16:22:04 by sskinner         ###   ########.fr       */
+/*   Updated: 2019/06/20 12:02:51 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-static  t_fig *create_list(int a)
+/*istatic  t_fig *create_list(int a)
 {
     t_fig *head = NULL;
     t_fig* second = NULL;
@@ -56,7 +56,7 @@ static  t_fig *create_list(int a)
     second->y_arr[2] = 1;
     second->y_arr[3] = 1;*/
 
-   second->x_arr[0] = 0;
+  /* second->x_arr[0] = 0;
     second->x_arr[1] = 1;
     second->x_arr[2] = 2;
     second->x_arr[3] = 3;
@@ -81,53 +81,7 @@ static  t_fig *create_list(int a)
     second->next = NULL;
     second->prev = third;
     return(head);
-}
-/*int main ()
-{
-    char **map;
-    int n =2;
-    char     *line;
-    int         fd;
-    int         ret;
-    char        *filename;
-    char        buf[BUFF_SIZE + 1];
-    char        *tmp;
-
-    t_fig       *head;
-    t_fig       *node;
-    int         i = 0;
-    int x1[4] =  {4 ,4, 4, 4};
-    int x2[4] =  {3 ,2, 3, 4};
-    int x3[4] =  {1 ,1, 2, 3};
-
-    int y1[4] = {1,2,3,4};
-    int y2[4] = {1,2,2,2};
-    int y3[4] = {2,3,3,3};
-
-    int index1 = 1;
-    int index2 = 2;
-    int index3 = 3;
-
-
-     filename = "tetri.txt";
-    fd = open(filename, O_RDONLY);
-    while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
-    {
-        buf[ret] = '\0';
-        //ft_putstr(buf);
-    }
-    printf ("buf: %s\n", buf);//считала файл в буфер
-    close(fd);*/
-
-  /*printf ("min_edge: %d\n", min_edge(n));
-   // min_edge(n);
-  if(create_map(n))
-  {
-      printf("end");
-  }*/
-
-
-
+}*/
 
 int check_avail(int *x,int *y, int dx,int dy, char **map)
 {
