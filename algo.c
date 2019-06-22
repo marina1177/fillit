@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:49:59 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/20 12:02:51 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/22 10:26:51 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,11 +288,8 @@ int main()
     char **map;
     int a;
     int n = 3;
-    int i;
-    int j;
-    int fd;
-
-    fd = open("tetri.txt", O_RDONLY);
+    
+	fd = open("tetri.txt", O_RDONLY);
     reading(fd);
     // printf("n = %d\n",n);
     a = min_edge(n);

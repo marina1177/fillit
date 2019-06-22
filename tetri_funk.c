@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 16:29:22 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/20 12:02:32 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/22 14:32:29 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ t_fig	*tetri_new()
 	    return (NULL);
     if (!(new->index = (int *)malloc(sizeof(int))))
         return (NULL);
+	new->index = -1;
 	new->next = NULL;
-//	new->prev = NULL;
+	
 	return (new);
 }
 
