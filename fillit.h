@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:25:58 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/20 12:03:36 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:16:32 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <sys/types.h>
-//# include <sys/uio.h>
-//# include <unistd.h>
-# include <io.h>
+# include <sys/uio.h>
+# include <unistd.h>
 # include <stdlib.h>
 # include "./libft/libft.h"
 
 //# define BUFF_SIZE 1
-# define TETRI 26
-
-/*typedef struct		tetri
-
-{
-    int	*x;
-    int	*y;
-    int index;
-    struct tetri *previous;
-    struct tetri *next;
-
-}					tetri;*/
 
 typedef struct s_figure   t_fig;
 
@@ -60,14 +47,15 @@ void    clear(t_fig *list,int dx, int dy, char **map);
 //int availible();
 
 //PART1
-int		reading(int fd);
-tetri	*tetri_new();
-int		tetri_del(tetri **base, tetri *del);
-void	tetri_add(tetri **base, tetri *new);
-void	tetri_add_w_copy(tetri **base, tetri *new, int index);
-void   tetri_absolute(tetri **base);
+char	*reading(int fd);
+t_fig	*tetri_new();
+void	tetri_del(t_fig **base);
+void	tetri_add_w_copy(t_fig **head, t_fig **new);
+void   tetri_absolute(t_fig **head);
 int     main_validate(char *str, int count);
-
+t_fig   *detect_and_createtetri(char *str);
+void    disp (t_fig *list,int dx, int dy);
+int min_x_y(int *arr)
 char    *strcut(char *str);
 
 #endif

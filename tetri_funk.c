@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 16:29:22 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/22 14:32:29 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/23 15:16:36 by bcharity         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,64 +22,45 @@ t_fig	*tetri_new()
 	    return (NULL);
 	if (!(new->y_arr = (int *)malloc(sizeof(int) * 4)))
 	    return (NULL);
-    if (!(new->index = (int *)malloc(sizeof(int))))
-        return (NULL);
 	new->index = -1;
 	new->next = NULL;
 	
 	return (new);
 }
 
-/*int		tetri_del(t_fig **base, t_fig *del)  //возможно понадобится простое удаление листов
+void	tetri_del(t_fig **base) 
 {
-	t_fig	*ptr;
-	t_fig	*buf;
+    t_fig *ptr;
 
-	ptr = *base;
-	if (*base && *base != del)
+    while ((*base) != NULL)
 	{
-		while (ptr && ptr->next != del)
-			ptr = ptr->next;
-		if (ptr)
-		{
-			buf = ptr->next;
-			ptr->next = ptr->next->next;
-			free(buf);
-		}
-		return (ptr) ? (0) : (-1);
-	}
-	else if (*base == del)
-	{
-		buf = *base;
-		*base = (*base)->next;
-		free(buf);
-	}
-	return (*base) ? (0) : (-1);
-}*/
-
-void	tetri_add(t_fig **base, t_fig *new)
-{
-	if (!(new))
-		return ;
-	new->next = *base;
-	*base = new;
-   // (*base)->prev = new;
+        ptr = (*base);
+        *base = (*base)->next;
+        free(ptr->x_arr);
+        free(ptr->y_arr);
+        free(ptr);
+    }
 }
 
-void	tetri_add_w_copy(tetri **base, tetri *new, int index)
+void	tetri_add_w_copy(t_fig **head, t_fig **new)
 {
-	tetri	*copy;
+	t_fig	*copy;
+	t_fig   *tmp;
+	int		i;
 
-	if (!(new))
-		return ;
+	i= 0;
+	if (*head == NULL)
+	    head = new;
+    tmp = *head;
+    while(tmp->next)
+	    i++;
+    (*new)->index = i;
 	copy = tetri_new();
-	*copy->x = *new->x;
-	*copy->y = *new->y;
-	copy->index = index;
-	copy->next = *base;
-	*base = copy;
-    (*base)->previous = copy;
-	free(new);
+	copy->x_arr = (*new)->x_arr;
+	copy->y_arr = (*new)->y_arr;
+	copy->index = (*new)->index;
+    (*head)->next = *new; 
+	tetri_del(new);    
 }
 
 char    *strcut(char *str)
@@ -88,32 +69,54 @@ char    *strcut(char *str)
     int     i;
 
     i = 0;
-    while (*str != '\0')
-    {
-        str++;
+    while (str[i] != '\0')
         i++;
-    }
     buf = ft_strndup(str, i);
     return (buf);
 }
 
-void   tetri_absolute(tetri **base)   //чекоть
+int	min_x_y(int *arr)
 {
-    int dimention_x;
-    int dimention_y;
-    int i;
+	int i;
+	int min;
 
-    i = 0;
-    while ((*base)->next != NULL)
+	i = 4;
+	min = 0;
+	while (i < 0)
+	{
+		if (arr[i] < min)
+			min = arr[i];
+		i--;
+	}
+	return (min);
+}
+
+void	disp(t_fig	*list,int dx, int dy)
+{
+	int i;
+
+	i = 0;
+	while (i < 4)
+	{
+		list->x_arr[i] -= dx;
+		list->y_arr[i] -= dy;
+	}
+}
+
+void   tetri_absolute(t_fig **head)
+{
+    int d_x;
+    int d_y;
+    t_fig   *ptr;
+ 
+ 	d_x = 0;
+    d_y = 0;
+    ptr = *head;
+    while (ptr->next != NULL)
     {
-        dimention_x = (*base)->x[0];
-        dimention_y = (*base)->y[0];
-        while (i != 8)
-        {
-            (*base)->x[i] = (*base)->x[i] - dimention_x;
-            (*base)->y[i] = (*base)->y[i] - dimention_y;
-            i++;
-        }
-        *base = (*base)->next;
+		dx = min_x_y(ptr->x_arr);
+		dy = min_x_y(ptr->y_arr);
+		disp(ptr, dx,dy);
+  //      ptr = ptr->next;
     }
 }
