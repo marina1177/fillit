@@ -14,18 +14,18 @@
 
 t_fig	*tetri_new()
 {
-	t_fig	*new;
+    t_fig	*new;
 
-	if (!(new = (t_fig *)malloc(sizeof(t_fig))))
-	    return (NULL);
-	if (!(new->x_arr = (int *)malloc(sizeof(int) * 4)))
-	    return (NULL);
-	if (!(new->y_arr = (int *)malloc(sizeof(int) * 4)))
-	    return (NULL);
-	new->index = -1;
-	new->next = NULL;
-	
-	return (new);
+    if (!(new = (t_fig *)malloc(sizeof(t_fig))))
+        return (NULL);
+    if (!(new->x_arr = (int *)malloc(sizeof(int) * 4)))
+        return (NULL);
+    if (!(new->y_arr = (int *)malloc(sizeof(int) * 4)))
+        return (NULL);
+    new->index = -1;
+    new->next = NULL;
+
+    return (new);
 }
 
 void	tetri_del(t_fig **base) 
@@ -42,47 +42,6 @@ void	tetri_del(t_fig **base)
     }
 }
 
-static void rewrite(t_fig *new, t_fig *copy)
-{
-    int i;
-
-    i = 0;
-    while (i < 4)
-    {
-        copy->x_arr[i] = new->x_arr[i];
-        copy->y_arr[i] = new->y_arr[i];
-        i++;
-    }
-    copy->index =new->index;
-}
-
-void	tetri_add_w_copy(t_fig **head, int *new)
-{
-	t_fig   *tmp;
-	t_fig   *p;
-	int		i;
-
-
-	/*i= 0;
-	if (*head == NULL)
-	    *head = *new;
-    tmp = *head;
-    while(tmp->next)
-	    i++;
-    (*new)->index = i;
-	copy = tetri_new();
-	rewrite(*new, copy);
-	p = *new;
-	if ((*head)->next == NULL)
-        (*head) = copy;
-	else
-        (*head)->next = copy;
-    free(p->x_arr);
-    free(p->y_arr);
-    free(p);*/
-}
-
-
 
 char    *strcut(char *str)
 {
@@ -96,7 +55,7 @@ char    *strcut(char *str)
     return (buf);
 }
 
-int	min_x_y(int *arr)
+int	min_x_y(const int *arr)
 {
 	int i;
 	int min;
@@ -119,9 +78,9 @@ void	disp(t_fig	*list,int dx, int dy)
 	i = 0;
 	while (i < 4)
 	{
-		list->x_arr[i] -= dx;
-		list->y_arr[i] -= dy;
-		i--;
+		list->x_arr[i] = list->x_arr[i] - dx;
+		list->y_arr[i] = list->y_arr[i] - dy;
+		i++;
 	}
 }
 

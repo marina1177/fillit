@@ -20,7 +20,7 @@ int check_avail(int *x,int *y, int dx,int dy, char **map)
     int ny;
 	
 	i = 0;
-    while(i < 4)
+	while(i < 4)
     {
 		nx = x[i] + dx;
         ny = y[i] + dy;
@@ -28,11 +28,11 @@ int check_avail(int *x,int *y, int dx,int dy, char **map)
         printf("map= %c\n",map[ny][nx]);
         if(map[ny][nx] == '.')
         {
-//			printf("check_%c\n",map[ny][nx]);
+			printf("check_%c\n",map[ny][nx]);
             i++;
         }
-		else
-			return(0);
+        else if (map[ny][nx] != '.')
+            return(0);
     }
         return (1);
 }
@@ -87,17 +87,27 @@ int		fill_map(int a, t_fig *list, char **map)
 
     x = list->x_arr;
     y = list->y_arr;
+
+  /*  printf("list->index= %d\n",list->index);
+    for(int j = 0; j < 4; j++)
+    {
+        printf("list->x[%d]_%d\n",j,list->x_arr[j]);
+        printf("list->y[%d]_%d\n",j,list->y_arr[j]);
+
+    }*/
+
     dy = 0;
     while (dy < a)
     {
 		dx = 0;
         while (dx < a)
         {
+            printf("dx = %d, dy = %d\n",dx,dy);
 			if (check_avail(x,y,dx,dy,map))
             {
-//				printf("DX_1=%d__DY_1=%d\n", dx,dy);
+				printf("DX_1=%d__DY_1=%d\n", dx,dy);
                 to_map(list, dx, dy,map);
-//              printf("OK\n");
+                printf("OK\n");
                 if(list->next == NULL || fill_map(a, list->next, map))
 					return (1);
 			}
@@ -224,14 +234,37 @@ int main(int ac, char **av)
 	}
 	fd = open(av[1], O_RDONLY);
     str = reading(fd);
-    if (main_validate(str, ft_strlen(str) + 1) == -1)
+    if ((list = main_validate(str, ft_strlen(str) + 1)) == NULL)
 	{
 		ft_putendl("error");
         return (-1);
 	}
 	close(fd);
-    list = detect_and_createtetri(str);
-	tetri_absolute(&list);
+    while(list->next !=  NULL)
+    {
+        printf("list->index= %d\n", list->index);
+        for (int j = 0; j < 4; j++)
+        {
+            printf("$$$$$$list->x[%d]_%d\n", j, list->x_arr[j]);
+            printf("***********list->y[%d]_%d\n", j, list->y_arr[j]);
+
+        }
+        list = list->next;
+    }
+   	tetri_absolute(&list);
+
+   	while(list->next !=  NULL)
+   	{
+        printf("list->index= %d\n", list->index);
+        for (int j = 0; j < 4; j++)
+        {
+            printf("***********list->x[%d]_%d\n", j, list->x_arr[j]);
+            printf("***********list->y[%d]_%d\n", j, list->y_arr[j]);
+
+        }
+        list = list->next;
+    }
+
 	a = min_edge(list);
     map = create_map(list,a);
 	print_map(map);

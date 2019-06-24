@@ -15,10 +15,10 @@
 
 # include <fcntl.h>
 # include <stdio.h>
-# include <io.h>
-/*# include <sys/types.h>
+//# include <io.h>
+# include <sys/types.h>
 # include <sys/uio.h>
-# include <unistd.h>*/
+# include <unistd.h>
 # include <stdlib.h>
 # include "./libft/libft.h"
 
@@ -50,13 +50,13 @@ void    clear(t_fig *list,int dx, int dy, char **map);
 //PART1
 char	*reading(int fd);
 t_fig	*tetri_new();
+t_fig	*new_list(t_fig **head,int l);
 void	tetri_del(t_fig **base);
-void	tetri_add_w_copy(t_fig **head, int *new);
 void    tetri_absolute(t_fig **head);
-int     main_validate(char *str, int count);
-t_fig   *detect_and_createtetri(char *str);
+t_fig   *main_validate(char *str, int count);
+t_fig   *create_list(int *st, t_fig **head, int l);
 void    disp (t_fig *list,int dx, int dy);
-int     min_x_y(int *arr);
+int     min_x_y(const int *arr);
 char    *strcut(char *str);
 
 #endif
