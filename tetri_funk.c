@@ -6,7 +6,7 @@
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/02 16:29:22 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/23 15:16:36 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:19 by sskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,47 @@ void	tetri_del(t_fig **base)
     }
 }
 
-void	tetri_add_w_copy(t_fig **head, t_fig **new)
+static void rewrite(t_fig *new, t_fig *copy)
 {
-	t_fig	*copy;
+    int i;
+
+    i = 0;
+    while (i < 4)
+    {
+        copy->x_arr[i] = new->x_arr[i];
+        copy->y_arr[i] = new->y_arr[i];
+        i++;
+    }
+    copy->index =new->index;
+}
+
+void	tetri_add_w_copy(t_fig **head, int *new)
+{
 	t_fig   *tmp;
+	t_fig   *p;
 	int		i;
 
-	i= 0;
+
+	/*i= 0;
 	if (*head == NULL)
-	    head = new;
+	    *head = *new;
     tmp = *head;
     while(tmp->next)
 	    i++;
     (*new)->index = i;
 	copy = tetri_new();
-	copy->x_arr = (*new)->x_arr;
-	copy->y_arr = (*new)->y_arr;
-	copy->index = (*new)->index;
-    (*head)->next = *new; 
-	tetri_del(new);    
+	rewrite(*new, copy);
+	p = *new;
+	if ((*head)->next == NULL)
+        (*head) = copy;
+	else
+        (*head)->next = copy;
+    free(p->x_arr);
+    free(p->y_arr);
+    free(p);*/
 }
+
+
 
 char    *strcut(char *str)
 {
@@ -82,7 +103,7 @@ int	min_x_y(int *arr)
 
 	i = 4;
 	min = 0;
-	while (i < 0)
+	while (i > 0)
 	{
 		if (arr[i] < min)
 			min = arr[i];
@@ -100,6 +121,7 @@ void	disp(t_fig	*list,int dx, int dy)
 	{
 		list->x_arr[i] -= dx;
 		list->y_arr[i] -= dy;
+		i--;
 	}
 }
 
@@ -112,11 +134,11 @@ void   tetri_absolute(t_fig **head)
  	d_x = 0;
     d_y = 0;
     ptr = *head;
-    while (ptr->next != NULL)
+    while (ptr)
     {
-		dx = min_x_y(ptr->x_arr);
-		dy = min_x_y(ptr->y_arr);
-		disp(ptr, dx,dy);
-  //      ptr = ptr->next;
+		d_x = min_x_y(ptr->x_arr);
+		d_y = min_x_y(ptr->y_arr);
+		disp(ptr, d_x,d_y);
+       ptr = ptr->next;
     }
 }

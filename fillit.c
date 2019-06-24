@@ -12,14 +12,12 @@
 
 #include "fillit.h"
 
-static void tetri_build(t_fig **head,t_fig **tetri, int i, int x, int y)
+static void tetri_build(t_fig **head, int *tetri, int i, int x, int y)
 {
-    if (*tetri == NULL)
-    {
-        *tetri = tetri_new();
-    }
-    (*tetri)->x_arr[i] = x;
-    (*tetri)->y_arr[i] = y;
+
+    tetri[i] = x;
+    tetri[i + 4]= y;
+
     if (i == 3)
         tetri_add_w_copy(head, tetri);
 }
@@ -30,20 +28,20 @@ t_fig   *detect_and_createtetri(char *str)
     int		y;
     int		i;
     t_fig   *head;
-    t_fig	*tetri;
+    int     tetri[9];
 
     i = 0;
     y = 0;
     head = NULL;
-    tetri = NULL;
-    while (*str != '\n' && *(str + 1) != '\0')
+    while (*str != '\0')
     {
         x = 0;
-        while (*str != '\n')
+        while (!(*str == '\n' && *(str + 1) == '\n') &&
+        !(*str == '\n' && *(str + 1) == '\0'))
         {
             if (*str == '#')
             {
-                tetri_build(&head, &tetri, i, x, y);
+                tetri_build(&head, tetri, i, x, y);
                 i++;
             }
             str++;
@@ -57,15 +55,18 @@ t_fig   *detect_and_createtetri(char *str)
 
 char	*reading(int fd)
 {
-	int		count;
 	char	str[546];
 	char    *tmp;
+    int     count;
 
-	while ((count = read(fd, str, 546)) >= 20)
-    {
-        str[count] = '\0';
+	tmp = NULL;
+	while ((count =read(fd, str, 546)) >= 20)
+	{
+	    str[count] = '\0';
+        printf("str_before_strcat_%s",str);
         tmp = strcut(str);
-	}
+        printf("str_after_strcat_%s",tmp);
+    }
     return (tmp);
 }
 

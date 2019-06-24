@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   valid.c                                            :+:      :+:    :+:   */
+/*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sskinner <sskinner@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/31 17:49:59 by sskinner          #+#    #+#             */
-/*   Updated: 2019/06/23 15:16:39 by bcharity         ###   ########.fr       */
+/*   Updated: 2019/06/23 17:09:20 by sskinner         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,8 @@ int		fill_map(int a, t_fig *list, char **map)
         dy++ ;
     }// найти место для фигуры не удалось
      if (list->index == 0)
-         return(-1);// fill_map(a++, fig, map));
+         return (-1);// fill_map(a++, fig, map));
+	return (0);
 }
 
 static int     min_edge(t_fig *list)
@@ -115,8 +116,11 @@ static int     min_edge(t_fig *list)
     int n;
 
     n = 0;
-    while(list->next)
+    while(list)
+    {
         n++;
+        list = list->next;
+    }
     printf("n = %d\n",n);
     a = 0;
     while (a * a < 4*n)
@@ -173,14 +177,11 @@ char *free_map(char **map)
     return(NULL);
 }
 
- char **create_map (t_fig *list)
+char    **create_map (t_fig *list,int a)
 {
     char **map;
     int f;
-	int a;
-
-	a = min_edge(list);
-	// printf("a = %d\n",a);
+	
     map = zero_map(a);
     f = fill_map(a, list, map);
     if (f == 1)
@@ -214,13 +215,14 @@ int main(int ac, char **av)
     char **map;
     char *str;
     int fd;
-    
+    int a;
+
 	if (ac != 2)
 	{
 		ft_putendl("usage [map]");
 		return (0);
 	}
-	fd = open(argv[1], O_RDONLY);
+	fd = open(av[1], O_RDONLY);
     str = reading(fd);
     if (main_validate(str, ft_strlen(str) + 1) == -1)
 	{
@@ -229,8 +231,9 @@ int main(int ac, char **av)
 	}
 	close(fd);
     list = detect_and_createtetri(str);
-    tetri_absolute(&list);
-    map = create_map(list);
+	tetri_absolute(&list);
+	a = min_edge(list);
+    map = create_map(list,a);
 	print_map(map);
     free_map(map);
     tetri_del(&list);
