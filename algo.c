@@ -25,8 +25,8 @@ int check_avail(int *x,int *y, int dx,int dy, char **map)
 		nx = x[i] + dx;
         ny = y[i] + dy;
         printf("nx = %d___ny = %d\n", nx,ny);
-        printf("map= %c\n",map[ny][nx]);
-        if(map[ny][nx] == '.')
+        //printf("map= %c\n",map[ny][nx]);
+        if( map[ny][nx] == '.')
         {
 			printf("check_%c\n",map[ny][nx]);
             i++;
@@ -47,7 +47,7 @@ void	to_map(t_fig *list, int dx, int dy, char **map)
     i = 0;
     x = list->x_arr;
     y = list->y_arr;
-    c = list->index + 64;
+    c = list->index + 65;
     printf("c_%c\n", c);
     while(i < 4)
     {
@@ -55,27 +55,6 @@ void	to_map(t_fig *list, int dx, int dy, char **map)
       //  printf("to_map_c_%c\n",map[y[i]-dy-1][x[i]+dx]);
         i++;
     }
-}
-
-void	clear(t_fig *list, int dx, int dy, char **map)
-{
-    int *x;
-    int *y;
-    int i;
-    char c;
-
-    i = 0;
-    x = list->x_arr;
-    y = list->y_arr;
-    c = list->index + 64;
-    printf("c_%c\n", c);
-    while(i < 4)
-    {
-        map[y[i]-dy-1][x[i]+dx] = '.';
-        //  printf("to_map_c_%c\n",map[y[i]-dy-1][x[i]+dx]);
-        i++;
-    }
-
 }
 
 int		fill_map(int a, t_fig *list, char **map)
@@ -147,29 +126,22 @@ char **zero_map(int a)
     char	**map;
 
    j = 0;
-//	map = ft_memalloc((a+1)*sizeof(char*));
-   if(!(map = (char**)malloc((a+1)*sizeof(char*))))
-	   return(NULL);
+//   if(!(map = (char**)malloc((a+1)*sizeof(char*))))
+//	   return(NULL);
+  map = ft_memalloc((a+2)*sizeof(char*));
    while(j < a+1)
    {
-	   map[j] = ft_memalloc((a+1)*sizeof(char));
-       // map[j] = (char*)malloc((a+1)*sizeof(char));
+	   map[j] = ft_memalloc((a+2)*sizeof(char));
        j++;
 	}
     j = 0;
     while(j < a)
     {
-       /* i = 0;
-        while(i < a)
-        {
-            map[i][j] = '.';
-            i++;
-        }*/
-		map[j] = ft_memset(map[j], '.', a);
-        map[a][j] = '\0';
+        map[j] = ft_memset(map[j], '.', a);
+     //  map[a][j] = '\0';
         j++;
     }
-    map[a] = NULL;
+    //map[a] = NULL;
     return(map);
 }
 
@@ -222,6 +194,7 @@ void    print_map(char **map)
 int main(int ac, char **av)
 {
     t_fig *list;
+    t_fig *iterate;
     char **map;
     char *str;
     int fd;
@@ -237,34 +210,42 @@ int main(int ac, char **av)
     if ((list = main_validate(str, ft_strlen(str) + 1)) == NULL)
 	{
 		ft_putendl("error");
-        return (-1);
+        return (0);
 	}
+  //  free(str);
 	close(fd);
-    while(list->next !=  NULL)
+  /*  iterate = list;
+    printf("-----Before absolute-----\n");
+    while(iterate !=  NULL)
     {
-        printf("list->index= %d\n", list->index);
+        printf("Figurine --> %d\n", iterate->index);
         for (int j = 0; j < 4; j++)
         {
-            printf("$$$$$$list->x[%d]_%d\n", j, list->x_arr[j]);
-            printf("***********list->y[%d]_%d\n", j, list->y_arr[j]);
+            printf("x[%d] = %d", j, iterate->x_arr[j]);
+            printf(" || y[%d] = %d\n", j, iterate->y_arr[j]);
 
         }
-        list = list->next;
+        iterate = iterate->next;
     }
+    printf("-------------------------\n");*/
+
    	tetri_absolute(&list);
 
-   	while(list->next !=  NULL)
+  /*  iterate = list;
+
+   printf("+++++After absolute++++++\n");
+    while(iterate !=  NULL)
    	{
-        printf("list->index= %d\n", list->index);
+        printf("Figurine --> %d\n", iterate->index);
         for (int j = 0; j < 4; j++)
         {
-            printf("***********list->x[%d]_%d\n", j, list->x_arr[j]);
-            printf("***********list->y[%d]_%d\n", j, list->y_arr[j]);
+            printf("x[%d] = %d", j, iterate->x_arr[j]);
+            printf(" || y[%d] = %d\n", j, iterate->y_arr[j]);
 
         }
-        list = list->next;
+        iterate = iterate->next;
     }
-
+    printf("+++++++++++++++++++++++++\n");*/
 	a = min_edge(list);
     map = create_map(list,a);
 	print_map(map);

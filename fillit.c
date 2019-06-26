@@ -89,7 +89,8 @@ char	*reading(int fd)
 	while ((count =read(fd, str, 546)) >= 20)
 	{
 	    str[count] = '\0';
-        tmp = strcut(str);
+	   // tmp = strcut(str);
+        tmp = ft_strndup(str,count);
     }
     return (tmp);
 }

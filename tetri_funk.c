@@ -55,7 +55,7 @@ char    *strcut(char *str)
     return (buf);
 }
 
-int	min_x_y(const int *arr)
+/*int	min_x_y(const int *arr)
 {
 	int i;
 	int min;
@@ -69,19 +69,6 @@ int	min_x_y(const int *arr)
 		i--;
 	}
 	return (min);
-}
-
-void	disp(t_fig	*list,int dx, int dy)
-{
-	int i;
-
-	i = 0;
-	while (i < 4)
-	{
-		list->x_arr[i] = list->x_arr[i] - dx;
-		list->y_arr[i] = list->y_arr[i] - dy;
-		i++;
-	}
 }
 
 void   tetri_absolute(t_fig **head)
@@ -99,5 +86,50 @@ void   tetri_absolute(t_fig **head)
 		d_y = min_x_y(ptr->y_arr);
 		disp(ptr, d_x,d_y);
        ptr = ptr->next;
+    }
+}*/
+
+static int find_min(t_fig *head, int bool)
+{
+    int dim;
+    int i;
+    int *arr;
+
+    i = 0;
+    arr = NULL;
+    if (bool == 0)
+        arr = head->x_arr;
+    else if (bool == 1)
+        arr = head->y_arr;
+    dim = arr[0];
+    while (i < 3)
+    {
+        if (arr[i] < dim)
+            dim = arr[i];
+        i++;
+    }
+    return (dim);
+}
+
+void   tetri_absolute(t_fig **base)
+{
+    int d_x;
+    int d_y;
+    t_fig   *ptr;
+    int i;
+
+    ptr = *base;
+    while (ptr != NULL)
+    {
+        i = 0;
+        d_x = find_min(ptr, 0);
+        d_y = find_min(ptr, 1);
+        while (i < 4)
+        {
+            ptr->x_arr[i] = ptr->x_arr[i] - d_x;
+            ptr->y_arr[i] = ptr->y_arr[i] - d_y;
+            i++;
+        }
+        ptr = ptr->next;
     }
 }

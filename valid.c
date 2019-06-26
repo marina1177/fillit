@@ -21,7 +21,7 @@ static int validate_1(char *str)
     while (!(*str == '\0' && *(str - 1) == '\n') &&
     !(*str == '\n' && *(str - 1) == '\n'))
     {
-        if (*str == '.' || *str == '\n')//НЕ(А+В)=НЕ(А)*НЕ(В)
+        if (*str == '.' || *str == '\n')
             str++;
         if (*(str) == '#')
         {
@@ -62,17 +62,16 @@ static  int getvid(int *stack, int i)
     int flag;
     int vis[8];
 
-    vis[0] = stack[i] + 1;  //+x
-    vis[1] = stack[i + 4]; //y
-    vis[2] = stack[i];  //x
-    vis[3] = stack[i + 4] + 1;  //+y
-    vis[4] = stack[i] - 1;  //-x
-    vis[5] = stack[i + 4];  //y
-    vis[6] = stack[i];  //x
-    vis[7] = stack[i + 4] - 1;  //-y
-
+    vis[0] = stack[i] + 1;
+    vis[1] = stack[i + 4];
+    vis[2] = stack[i];
+    vis[3] = stack[i + 4] + 1;
+    vis[4] = stack[i] - 1;
+    vis[5] = stack[i + 4];
+    vis[6] = stack[i];
+    vis[7] = stack[i + 4] - 1;
     flag = func_flag(vis, stack);
-    printf("flag = %d\n",flag);
+//    printf("flag = %d\n",flag);
     return (flag);
 }
 
@@ -92,7 +91,7 @@ static t_fig *validate_3(int *st, int l)
         k = k + getvid(st, i);
         i++;
     }
-    printf("k(sum flag) = %d\n",k);
+ //   printf("k(sum flag) = %d\n",k);
     if (k >= 6)
        return(create_list(st, &head,l));
     return (NULL);
@@ -140,23 +139,19 @@ static t_fig *validate_2(char *str, int l)
             if (*str == '#')
             {
                 stack[k] = arr[0];
-                printf("stack_X[%d] = %d\n",k,stack[k]);
-                stack[k + 4] = arr[1];
-                printf("stack_Y[%d] = %d\n",k,stack[k+4]);
-
-                k++;
+                stack[k++ + 4] = arr[1];
+                //k++;
             }
             arr[0]++;
             str++;
         }
         arr[1]++;
         str++;
-            }
-    printf("l-1 = %d\n",l-1);
+    }
     return (validate_3(stack, l));
 }
 
-t_fig     *main_validate(char *str, int count) //отправлять на валидацию по 21 символу
+t_fig     *main_validate(char *str, int count)
 {
     char   buf_str[21 + 1];
     int i;
@@ -165,9 +160,11 @@ t_fig     *main_validate(char *str, int count) //отправлять на ва�
 
     l = 0;
     list = NULL;
+    if(str == NULL)
+        return(NULL);
     if (count % 21 != 0)
         return (NULL);
-    while (!(*str == '\0' && *(str - 1) == '\n'))
+    while (!(*(str - 1) == '\0' && *(str - 2) == '\n'))
     {
         i = 0;
         while (i < 21)
@@ -177,7 +174,7 @@ t_fig     *main_validate(char *str, int count) //отправлять на ва�
             str++;
         }
         l++;
-        buf_str[i] = '\0';  //buf[21]='\0'(22-ой элемент = '\0')
+        buf_str[i] = '\0';
         if (validate_1(buf_str) == -1)
             return (NULL);
         if (validate_n(buf_str) == -1)
