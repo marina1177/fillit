@@ -55,13 +55,15 @@ t_fig	*validate_main(char *str, int count)
 	if (count % 21 != 0)
 		return (NULL);
 	i = 0;
-	while (!(str[i - 1] == '\0' && str[i - 2] == '\n'))
+	while (1)
 	{
 		buf_str = ft_strsub(str, i, 21);
 		i = i + 21;
 		l++;
 		if ((list = validate_sub(buf_str, l)) == NULL)
 			return (NULL);
+		if (str[i - 1] == '\0' && str[i - 2] == '\n')
+			break ;
 	}
 	return (list);
 }
