@@ -55,7 +55,7 @@ t_fig	*validate_main(char *str, int count)
 	if (count % 21 != 0)
 		return (NULL);
 	i = 0;
-	while (!(str[i - 1] == '\0'  && str[i - 2] == '\n'))
+	while (!(str[i - 1] == '\0' && str[i - 2] == '\n'))
 	{
 		buf_str = ft_strsub(str, i, 21);
 		i = i + 21;
@@ -75,21 +75,20 @@ int		main(int ac, char **av)
 
 	if ((str = reading(ac, av[1])) == NULL)
 	{
-	    free(str);
-		ft_putendl("err_read");
+		free(str);
+		ft_putendl("error");
 		return (0);
 	}
 	if ((list = validate_main(str, ft_strlen(str) + 1)) == NULL)
 	{
-	    free(str);
+		free(str);
 		ft_putendl("error");
 		return (0);
 	}
-    free(str);
+	free(str);
 	tetri_absolute(&list);
 	a = min_edge(list);
 	map = create_map(list, a);
-	printf("---resoult---\n");
 	print_map(map);
 	free_map(map);
 	tetri_del(&list);

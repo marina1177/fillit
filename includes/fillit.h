@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
-# include <stdio.h>
+
 typedef struct s_figure	t_fig;
 
 struct		s_figure
@@ -47,7 +47,7 @@ t_fig		*validate_3(char *str, int l);
 t_fig		*validate_sub(char *buf, int l);
 t_fig		*validate_main(char *str, int count);
 t_fig		*create_list(int *st, t_fig **head, int l);
-int         func_flag(const int vis[8], const int *stack);
+int			func_flag(const int vis[8], const int *stack);
 int			getvid(int *stack, int i);
 int			min_edge(t_fig *list);
 void		clear_tetr(t_fig *list, int dx, int dy, char **map);

@@ -18,8 +18,8 @@ t_fig	*create_list(int *st, t_fig **head, int l)
 	static t_fig	*list;
 
 	i = 0;
-	if(!(list = new_list(head, l)))
-        tetri_del(head);
+	if (!(list = new_list(head, l)))
+		tetri_del(head);
 	while (i < 4)
 	{
 		list->x_arr[i] = st[i];

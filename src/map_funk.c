@@ -28,8 +28,6 @@ void		to_map(t_fig *list, int dx, int dy, char **map)
 		map[y[i] + dy][x[i] + dx] = c;
 		i++;
 	}
-	printf("to_map_\n");
-	print_map(map);
 }
 
 int			min_edge(t_fig *list)
@@ -55,9 +53,9 @@ char		**zero_map(int a)
 	char	**map;
 
 	j = 0;
-	if(!(map = malloc((a + 1) * sizeof(char *))))
-	    return(NULL);
-    map[a] = NULL;
+	if (!(map = malloc((a + 1) * sizeof(char *))))
+		return (NULL);
+	map[a] = NULL;
 	while (j < a)
 	{
 		map[j] = ft_memalloc((a + 2) * sizeof(char));
@@ -69,8 +67,6 @@ char		**zero_map(int a)
 		map[j] = ft_memset(map[j], '.', a);
 		j++;
 	}
-	printf("zeromap_\n");
-	print_map(map);
 	return (map);
 }
 

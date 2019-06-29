@@ -1,3 +1,0 @@
-/Users/bcharity/Desktop/marina/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/bcharity/Desktop/marina/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/bcharity/Desktop/marina/cmake-build-debug/CMakeFiles/marina.dir

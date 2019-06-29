@@ -26,9 +26,6 @@ void		clear_tetr(t_fig *list, int dx, int dy, char **map)
 		map[y[i] + dy][x[i] + dx] = '.';
 		i++;
 	}
-	printf("before_clear\n");
-	print_map(map);
-
 }
 
 int			check_avail(t_fig *list, int dx, int dy, char **map)
@@ -46,18 +43,12 @@ int			check_avail(t_fig *list, int dx, int dy, char **map)
 	{
 		nx = x[i] + dx;
 		ny = y[i] + dy;
-		if (map[ny] == NULL )
-		    return(0);
-		if ( map[ny][nx] == '.')
-		{
-            printf("check_ch_%c\n",map[ny][nx]);
+		if (map[ny] == NULL)
+			return (0);
+		if (map[ny][nx] == '.')
 			i++;
-		}
 		else if (map[ny][nx] != '.')
-		{
-            printf("err_check_ch_%c\n",map[ny][nx]);
-            return (0);
-        }
+			return (0);
 	}
 	return (1);
 }

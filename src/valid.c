@@ -113,19 +113,19 @@ t_fig	*validate_sub(char *buf, int l)
 
 	if (validate_1(buf) == -1)
 	{
-	    free(buf);
-        return (NULL);
-    }
-    if (validate_2(buf) == -1)
-    {
-        free(buf);
-        return (NULL);
-    }
+		free(buf);
+		return (NULL);
+	}
+	if (validate_2(buf) == -1)
+	{
+		free(buf);
+		return (NULL);
+	}
 	if ((list = validate_3(buf, l)) == NULL)
 	{
-	    free(buf);
-        return (NULL);
-    }
+		free(buf);
+		return (NULL);
+	}
 	free(buf);
 	return (list);
 }
