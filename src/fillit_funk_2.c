@@ -68,8 +68,11 @@ char	*reading(int ac, char *av)
 	count = read(fd, str, 546);
 	str[count] = '\0';
 	tmp = ft_strndup(str, count);
-	if ((count = read(fd, str, 546)) > 0)
+	if ((read(fd, str, 546)) > 0)
+	{
+		close(fd);
 		return (NULL);
+	}
 	close(fd);
 	return (tmp);
 }
